@@ -1,6 +1,6 @@
 {
     "train": {
-        "model": "FCN8s",
+        "model": "UNet",
         "train_img_dir": "data/train/img",
         "train_gt_dir": "data/train/gt",
         "val_img_dir": "data/val/img",
@@ -10,9 +10,9 @@
         "log_dir": "log"
     },
     "predict": {
-        "model": "FCN8s",
+        "model": "UNet",
         "img_dir": "data/val/img",
         "log_dir": "log",
-        "weight_path": "log/fcn8s.pt"
+        "weight_path": ""
     }
 }
