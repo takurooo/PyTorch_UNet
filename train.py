@@ -12,7 +12,6 @@ import torch.optim as optim
 from torch.utils.data import DataLoader
 
 from dataset import SemSegDataset
-from utils import list_util
 from models import UNet
 from trainer import Trainer
 # -------------------------------------------
@@ -35,7 +34,7 @@ def get_args():
 
 
 def main(args):
-    model_name = args["model"]
+    # model_name = args["model"]
     train_img_dir = args["train_img_dir"]
     train_gt_dir = args["train_gt_dir"]
     val_img_dir = args["val_img_dir"]
@@ -50,8 +49,9 @@ def main(args):
     Create DataLoader
     '''
     train_dataset = SemSegDataset(
-        N_CLASS, INPUT_SIZE, train_img_dir, train_gt_dir)
-    val_dataset = SemSegDataset(N_CLASS, INPUT_SIZE, val_img_dir, val_gt_dir)
+        N_CLASS, INPUT_SIZE, train_img_dir, train_gt_dir, train=True)
+    val_dataset = SemSegDataset(
+        N_CLASS, INPUT_SIZE, val_img_dir, val_gt_dir, train=False)
 
     train_dataloader = DataLoader(
         train_dataset, batch_size=24, shuffle=True, num_workers=4)
@@ -59,7 +59,7 @@ def main(args):
         val_dataset, batch_size=24, shuffle=False, num_workers=4)
 
     steps_per_epoch = len(train_dataset) // batch_size
-    validation_steps = len(val_dataset) // batch_size
+    # validation_steps = len(val_dataset) // batch_size
 
     print("train_img_len   : {}".format(len(train_dataset)))
     print("val_img_len     : {}".format(len(val_dataset)))

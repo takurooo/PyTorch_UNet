@@ -6,6 +6,7 @@ import sys
 import copy
 import time
 
+# from fastprogress import master_bar, progress_bar
 import torch
 #-------------------------------------------
 # defines
@@ -99,8 +100,7 @@ class Trainer:
         #------------------------------------------------------------------------        
         if self.print_state:
             print("Device :  ", self.device)
-            print("Train on {} samples, validate on {} samples".format(self.train_data_num,
-                                                                                                                 self.val_data_num))
+            print("Train on {} samples, validate on {} samples".format(self.train_data_num, self.val_data_num))
             for i in range(self.done_epochs):
                 done_history_idx = i
                 if self.val_loader:
@@ -136,7 +136,7 @@ class Trainer:
                 
                 if self.best_val_acc < val_score['acc']:
                     self.best_val_acc = val_score['acc']
-                    self.best_model_wts = copy.deepcopy(model.state_dict())
+                    self.best_model_wts = copy.deepcopy(self.model.state_dict())
                 
                 if self.scheduler:
                     self.scheduler.step(val_score['loss'])
@@ -144,7 +144,6 @@ class Trainer:
             else:
                 if self.scheduler:
                     self.scheduler.step(train_score['loss'])
-                
 
             self.done_epochs += 1
 

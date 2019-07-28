@@ -78,7 +78,7 @@ def predict(model, device, imgs):
 
 
 def main(args):
-    model_name = args["model"]
+    # model_name = args["model"]
     img_dir = args["img_dir"]
     log_dir = args["log_dir"]
     weight_path = args["weight_path"]
